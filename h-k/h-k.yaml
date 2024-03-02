@@ -4,12 +4,12 @@ metadata:
   annotations:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-  name: placeholder
+  name: h-k
   namespace: argo-gaqs
 
 spec:
   destination:
-    namespace: placeholder
+    namespace: default
     server: https://kubernetes.default.svc
 
   project: h-k

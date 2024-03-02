@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-of-apps
+  namespace: default
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
+spec:
+  destination:
+    name: in-cluster
+  project: default
+  source:
+    path: ./
+    repoURL: https://github.com/vagnerfls/App-Of-Apps.git
+    targetRevision: HEAD
