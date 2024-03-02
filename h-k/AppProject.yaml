@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+
+metadata:
+  name: h-k
+  namespace: argo-gaqs
+
+spec:
+  description: Grupo de projetos do H-K
+  
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "Deployment"
+    - group: "*"
+      kind: "ReplicaSet"          
+    - group: "*"
+      kind: "Pod"  
+    - group: "*"
+      kind: "ImageStream"
+    - group: "*"
+      kind: "Route"
+    - group: "*"
+      kind: "Service"
+    - group: "*"
+      kind: "Endpoints"
+    - group: "*"
+      kind: "EndpointSlice"   
+    - group: "*"
+      kind: "ConfigMap"
+    - group: "*"
+      kind: "Secret"
+    - group: "*"
+      kind: "CronJob"
+    - group: "*"
+      kind: "Job"
+
+  destinations:
+    - namespace: h-k-vfls
+      server: https://kubernetes.default.svc
+
+  sourceRepos:
+    - https://github.com/vagnerfls/H-K.git
+    - https://github.com/vagnerfls/App-Of-Apps.git

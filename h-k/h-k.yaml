@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  name: placeholder
+  namespace: argo-gaqs
+
+spec:
+  destination:
+    namespace: placeholder
+    server: https://kubernetes.default.svc
+
+  project: h-k
+
+  source:
+    repoURL: https://github.com/vagnerfls/H-K.git
+    path: .
+    targetRevision: HEAD
+    
+  ignoreDifferences:
+    - group: "apps"
+      kind: "Deployment"
+      jsonPointers:
+        - /spec/template/spec/containers/0/image
+  syncPolicy:
+    automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
+      prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+      selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
